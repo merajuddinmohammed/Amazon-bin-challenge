@@ -10,15 +10,17 @@ __pycache__/
 *.so
 .Python
 
-# Dataset (too large)
+# Dataset (too large - exclude images and raw metadata)
 dataset/bin-images/
 dataset/metadata/
-dataset/.metadata_cache.pkl
 
-# Results (generated during training)
-results/
-*.pt
-*.pth
+# Keep these for deployment:
+# dataset/.metadata_cache.pkl
+# results/
+# results/*.pt
+
+# Exclude other model checkpoints if any
+# *.pth
 
 # IDE
 .vscode/

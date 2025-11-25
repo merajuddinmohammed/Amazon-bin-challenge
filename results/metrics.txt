@@ -1,0 +1,15 @@
+=== Best Validation ===
+Best Val Accuracy: 0.9462
+
+=== Test Metrics ===
+Test Loss: 0.1423
+Test Accuracy: 0.9506
+Test Precision: 0.9172
+Test Recall: 0.9505
+Test F1-score: 0.9335
+Test ROC AUC: 0.9856
+Test Average Precision (PR AUC): 0.9673
+
+Confusion Matrix:
+[[6049  314]
+ [ 181 3476]]

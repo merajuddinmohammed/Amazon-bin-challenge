@@ -12,7 +12,7 @@ from torchvision import transforms, models
 
 import streamlit as st
 
-# ================== Paths ==================
+
 
 BASE_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = BASE_DIR / "results"
@@ -20,7 +20,7 @@ DATASET_DIR = BASE_DIR / "dataset"
 META_CACHE_PATH = DATASET_DIR / ".metadata_cache.pkl"
 MODEL_PATH = RESULTS_DIR / "best_verifier.pt"
 
-# ================== App Layout ==================
+
 
 st.set_page_config(
     page_title="Bin Order Verifier",
@@ -33,7 +33,7 @@ st.markdown("Verify if a bin image matches the expected **ASIN** and **quantity*
 st.markdown("---")
 
 
-# ================== Model Definition ==================
+
 
 class BinOrderVerifier(nn.Module):
     def __init__(self, num_asins: int, asin_emb_dim: int = 64,
@@ -67,7 +67,7 @@ class BinOrderVerifier(nn.Module):
         return logits.squeeze(1)
 
 
-# ================== Helpers ==================
+
 
 def build_transform():
     return transforms.Compose([
@@ -89,7 +89,7 @@ def safe_open_pil(uploaded_file):
     return img
 
 
-# ================== Load Model & Metadata ==================
+
 
 @st.cache_resource(show_spinner=True)
 def load_model_and_metadata():
@@ -143,7 +143,7 @@ def predict(model, device, transform, image, asin_id, quantity, max_qty):
     return float(prob)
 
 
-# ================== Load resources ==================
+
 
 try:
     model, device, asin2id, id2asin, max_qty, transform = load_model_and_metadata()
@@ -154,7 +154,7 @@ except Exception as e:
 tabs = st.tabs(["🔍 Verify Order", "📊 Metrics", "ℹ️ About"])
 
 
-# ================== TAB 1: Verify Order ==================
+
 
 with tabs[0]:
     st.subheader("🔍 Verify a Bin Image")
@@ -240,7 +240,7 @@ with tabs[0]:
             st.dataframe(details_df, hide_index=True)
 
 
-# ================== TAB 2: Metrics ==================
+
 
 with tabs[1]:
     st.subheader("📊 Model Performance")
@@ -277,7 +277,7 @@ with tabs[1]:
             st.image(str(pr_path), caption="Precision–Recall Curve")
 
 
-# ================== TAB 3: About ==================
+
 
 with tabs[2]:
     st.subheader("ℹ️ About This Project")

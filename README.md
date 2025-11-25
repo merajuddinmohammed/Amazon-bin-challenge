@@ -123,26 +123,6 @@ Decision: ≥0.5 → CORRECT, <0.5 → WRONG
 - **Early Stopping**: patience=5 epochs
 - **Device**: GPU (CUDA) if available, CPU fallback
 
-## Deployment
-
-### Streamlit Cloud (Recommended)
-
-1. Push code to GitHub
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Sign in with GitHub
-4. Select repo and deploy
-
-### Docker
-
-```bash
-docker build -t bin-verifier .
-docker run -p 8501:8501 bin-verifier
-```
-
-### Hugging Face Spaces
-
-Push to GitHub, then create a Space on [huggingface.co/spaces](https://huggingface.co/spaces)
-
 ## Results
 
 **Best Validation Accuracy: 94.62%**  
@@ -163,7 +143,7 @@ MIT License
 
 ## Author
 
-Meraj Uddin Mohammed
+Merajuddin Mohammed
 
 ## Contact
 

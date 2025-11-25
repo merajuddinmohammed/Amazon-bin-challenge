@@ -1,29 +1,4 @@
-"""
-Bin Order Verifier Training Script with Anti-Overfitting Upgrades
 
-Dataset layout (on Windows):
-
-C:/Users/meraj/OneDrive/Desktop/Amazon bin assignment/dataset/
-    bin-images/
-        00001.jpg
-        ...
-    metadata/
-        00001.json
-        ...
-
-Each JSON contains:
-{
-  "BIN_FCSKU_DATA": {
-      "<ASIN>": {"quantity": int, ...},
-      ...
-  },
-  "EXPECTED_QUANTITY": int
-}
-
-We create training samples of the form:
-(image, asin_id, requested_qty) -> label (1 = correct, 0 = wrong)
-and train a binary classifier.
-"""
 
 import os
 import json
@@ -52,7 +27,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 
-# ----------------- Reproducibility ----------------- #
+
 
 def set_seed(seed: int = 42):
     random.seed(seed)
@@ -61,7 +36,7 @@ def set_seed(seed: int = 42):
     torch.cuda.manual_seed_all(seed)
 
 
-# ----------------- Dataset Utilities ----------------- #
+
 
 def load_all_metadata(meta_dir: Path):
     """
@@ -131,18 +106,7 @@ def build_samples_for_split(
     neg_per_bin_asin=1,
     neg_fake_asin=2,
 ):
-    """
-    Create sample dicts for a batch:
-
-    Positive:
-      (basename, asin_true, true_qty, label=1)
-
-    Negative (wrong quantity, same ASIN):
-      (basename, asin_true, wrong_qty, label=0)
-
-    Negative (ASIN not in bin):
-      (basename, asin_fake, any_qty, label=0)
-    """
+    
     samples = []
 
     total_bins = len(split_basenames)
@@ -258,7 +222,7 @@ class BinOrderDataset(Dataset):
         )
 
 
-# ----------------- Model ----------------- #
+
 
 class BinOrderVerifier(nn.Module):
     """
@@ -301,7 +265,7 @@ class BinOrderVerifier(nn.Module):
         return logits.squeeze(1)
 
 
-# ----------------- Train / Eval Loops ----------------- #
+
 
 def train_one_epoch(model, loader, criterion, optimizer, device, max_grad_norm=5.0):
     model.train()
@@ -377,7 +341,7 @@ def eval_one_epoch(model, loader, criterion, device):
     return epoch_loss, acc, all_labels, all_probs
 
 
-# ----------------- Plotting ----------------- #
+
 
 def plot_training_curves(history, out_dir: Path):
     epochs = range(1, len(history["train_loss"]) + 1)
@@ -477,7 +441,7 @@ def plot_roc_pr(y_true, y_probs, out_dir: Path):
     return roc_auc, ap
 
 
-# ----------------- Early Stopping ----------------- #
+
 
 class EarlyStopping:
     """
@@ -501,7 +465,7 @@ class EarlyStopping:
                 self.should_stop = True
 
 
-# ----------------- Metadata Cache Helper ----------------- #
+
 
 def load_or_cache_metadata(meta_dir: Path, cache_path: Path):
     if cache_path.exists():
@@ -520,7 +484,7 @@ def load_or_cache_metadata(meta_dir: Path, cache_path: Path):
     return meta_dict, asin2id, max_qty
 
 
-# ----------------- Main ----------------- #
+
 
 def main():
     parser = argparse.ArgumentParser()

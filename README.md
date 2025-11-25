@@ -59,13 +59,6 @@ python train_bin_verifier.py --epochs 15 --batch-size 32
 - `--batch-size`: Batch size (default: 32)
 - `--lr`: Learning rate (default: 1e-4)
 
-### Run Streamlit App
-
-```bash
-streamlit run streamlit_app.py
-```
-
-Opens at: `http://localhost:8501`
 
 ## Project Structure
 
